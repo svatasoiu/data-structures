@@ -68,7 +68,23 @@ void SkipList<K,V>::insert(K key, V value) {
 
 template <class K, class V>
 void SkipList<K,V>::remove(K key) { 
-    throw "Function not yet implemented";
+    SkipListNode<K,V>* prevNode = nullptr;
+    auto currentNode = head;
+    int level = max_used_level;
+    while (level >= 0) {
+        while (currentNode->shortcuts[level] && (currentNode->shortcuts[level]->key <= key)) {
+            prevNode = currentNode;
+            currentNode = currentNode->shortcuts[level];
+        }
+
+        if (currentNode->key == key) {
+            prevNode->shortcuts[level] = currentNode->shortcuts[level];
+        }
+        
+        --level;
+    }
+    if (currentNode->key == key)
+        delete currentNode;
 }
 
 template <class K, class V>

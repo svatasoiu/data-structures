@@ -12,18 +12,36 @@ namespace {
 TEST(SkipListTest, Find) {
     skiplist::SkipList<uint64_t, uint64_t> skiplist;
 
-    size_t size = 50;
+    auto computeValue = [](uint64_t key) { return key * 3; };
+
+    size_t size = 100;
     for (uint64_t i = 1; i <= size ; ++i) {
-        // std::cout << i << std::endl;
-        skiplist.insert(i, i * 3);
+        skiplist.insert(i, computeValue(i));
     }
 
-    skiplist.print(std::cout);
-    skiplist.insert(size + 1, 3 * (size + 1));
-    skiplist.print(std::cout);
+    for (uint64_t i = 1; i <= size; ++i)
+        EXPECT_EQ(std::experimental::optional<uint64_t>{computeValue(i)}, skiplist.find(i));
+}
+    
+TEST(SkipListTest, Remove) {
+    skiplist::SkipList<uint64_t, uint64_t> skiplist;
 
-    for (uint64_t i = 1; i <= size+1; ++i)
-        EXPECT_EQ(std::experimental::optional<uint64_t>{i * 3}, skiplist.find(i));
+    auto computeValue = [](uint64_t key) { return key * 3; };
+
+    size_t size = 100;
+    for (uint64_t i = 1; i <= size ; ++i) {
+        skiplist.insert(i, computeValue(i));
+    }
+
+    for (uint64_t i = 1; i <= size ; ++i) {
+        skiplist.remove(i);
+        for (uint64_t j = 1; j <= size ; ++j) {
+            if (j <= i)
+                EXPECT_EQ(std::experimental::optional<uint64_t>{}, skiplist.find(j));
+            else 
+                EXPECT_EQ(std::experimental::optional<uint64_t>{computeValue(j)}, skiplist.find(j));
+        }
+    }
 }
 
 }
