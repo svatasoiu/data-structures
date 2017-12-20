@@ -7,3 +7,4 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib")
 enable_testing()
 
 add_subdirectory(skip_list)
+add_subdirectory(hash_table)
