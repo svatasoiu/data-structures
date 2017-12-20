@@ -7,7 +7,7 @@
 namespace skiplist {
 
 template <class K, class V>
-SkipList<K,V>::SkipList(double p, int m) : max_level(m - 1), p(p), max_used_level(0) {
+SkipList<K,V>::SkipList(double p, int numLevels) : max_level(numLevels - 1), p(p), max_used_level(0) {
     static_assert(std::is_integral<K>::value, "Key type must be integral");
     head = new SkipListNode<K,V>(0,0,max_level);
     memset(head->shortcuts, 0, sizeof(head->shortcuts));

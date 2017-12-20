@@ -14,7 +14,7 @@ TEST(SkipListTest, Find) {
 
     auto computeValue = [](uint64_t key) { return key * 3; };
 
-    size_t size = 100;
+    size_t size = 10000;
     for (uint64_t i = 1; i <= size ; ++i) {
         skiplist.insert(i, computeValue(i));
     }
@@ -28,7 +28,7 @@ TEST(SkipListTest, Remove) {
 
     auto computeValue = [](uint64_t key) { return key * 3; };
 
-    size_t size = 100;
+    size_t size = 1000;
     for (uint64_t i = 1; i <= size ; ++i) {
         skiplist.insert(i, computeValue(i));
     }
