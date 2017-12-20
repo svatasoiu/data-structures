@@ -10,7 +10,7 @@ namespace hashtable {
 template <typename T>
 constexpr bool is_power_of_2(const T x) { 
     static_assert(std::is_arithmetic<T>::value, "T must be numeric");
-    return ~(x & (x - 1)); 
+    return !(x & (x - 1)); 
 }
 
 template <class K, class V, class Hash>
