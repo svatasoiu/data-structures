@@ -55,7 +55,7 @@ void HashTable<K,V,Hash>::insert(K key, V value) {
         auto newTable = std::make_unique<std::vector<std::list<std::pair<K,V>>>>(_table->size() * 2);
         for (const std::list<std::pair<K,V>>& list : *_table) {
             for (const std::pair<K,V>& p : list) {
-                newTable->at(compute_bucket(key)).push_back(p);
+                newTable->at(compute_bucket(std::get<0>(p))).push_back(p);
             }
         }
         _table = std::move(newTable);
